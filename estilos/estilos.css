@@ -16,15 +16,15 @@ body{
   justify-items: center;
   margin-top: ;
 }
-.caixa-figurinhas{
+ul{
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 }
-.figurinha{
+li{
 
-  width:117px;
-  height: 146px;
+  width:100px;
+  height: 100px;
   background: #A7E9AF;
   border-radius: 5px; 
   position: relative;
@@ -33,12 +33,18 @@ body{
   
 }
 img{
-  width: 100px;
-  height: 100px;
+  width: 75px;
+  height: 75px;
   position: absolute;
   margin: auto;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
+}
+.aparece{
+  display: block;
+}
+.desaparece{
+  display: none;
 }
