@@ -1,22 +1,44 @@
 let numeroCartas=parseInt(prompt("Digite o número de cartas"));
-let gifs = ["<img class ='gif desaparece' src='imagens/bobrossparrot.gif'>","<img class ='gif desaparece' src='imagens/explodyparrot.gif'>","<img class ='gif desaparece' src='imagens/fiestaparrot.gif'>","<img class ='gif desaparece' src='imagens/metalparrot.gif'>","<img class ='gif desaparece' src='imagens/revertitparrot.gif'>","<img class ='gif desaparece' src='imagens/tripletsparrot.gif'>", "<img class ='gif desaparece' src='imagens/unicornparrot.gif'>"]
+let gifs = ["<img class ='gif desaparece' src='imagens/bobrossparrot.gif'>"
+,"<img class ='gif desaparece' src='imagens/explodyparrot.gif'>"
+,"<img class ='gif desaparece' src='imagens/fiestaparrot.gif'>"
+,"<img class ='gif desaparece' src='imagens/metalparrot.gif'>"
+,"<img class ='gif desaparece' src='imagens/revertitparrot.gif'>"
+,"<img class ='gif desaparece' src='imagens/tripletsparrot.gif'>"
+, "<img class ='gif desaparece' src='imagens/unicornparrot.gif'>"]
+let cartasDoJogo=[];
+
+let vitoria=0;
+let total=0;
 
 while(numeroCartas<4 || numeroCartas>14 || numeroCartas%2!==0 ){
   numeroCartas=parseInt(prompt("Digite o número de cartas"));
 }
 
 for(let i=0;i<numeroCartas/2;i++){
-  let cartas=document.querySelector("ul");
-  cartas.innerHTML+=` <li onclick="virar(this)">
+  cartasDoJogo.push(` <li onclick="virar(this)">
   <img  src="imagens/papagaio.png" alt="papagaio">
   ${gifs[i]}
-  </li>`;
-  cartas.innerHTML+=` <li onclick="virar(this)">
+  </li>`);
+  cartasDoJogo.push(` <li onclick="virar(this)">
   <img src="imagens/papagaio.png" alt="papagaio">
   ${gifs[i]}
-  </li>`;
-
+  </li>`);
 }
+console.log(cartasDoJogo)
+cartasDoJogo.sort(comparador); // Após esta linha, a minhaArray estará embaralhada
+console.log(cartasDoJogo)
+
+for(let i=0;i<cartasDoJogo.length;i++){
+  let cartas=document.querySelector("ul");
+  cartas.innerHTML+=cartasDoJogo[i];
+}
+
+// Esta função pode ficar separada do código acima, onde você preferir
+function comparador() { 
+	return Math.random() - 0.5; 
+}
+
 let lista=[];
 let ultimaCarta=null;
 
@@ -30,21 +52,23 @@ function virar(elemento) {
   gif.classList.add('aparece');
 
   lista.push(gif);
-  
+  total+=1
 
   if(lista.length==2){
-    let selecionado=lista[1];
-    let selecionadoAntes=lista[0];
+
     analise(lista[0],lista[1]);
     lista=[]
-    
-
   }
 }
 
 function analise(elemento1,elemento2){
   if(elemento1.src===elemento2.src){
-    elemento1.removeAttribute('onclick')
+    elemento1.removeAttribute('onclick');
+    vitoria=vitoria+2;
+    console.log(vitoria)
+    if(vitoria===numeroCartas){
+      alert("você venceu em "+total+" jogadas")
+    }
   }else{
     setTimeout(desvirar, 1000,elemento1,elemento2);
   }
